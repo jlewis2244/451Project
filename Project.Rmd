@@ -1,0 +1,83 @@
+---
+title: "451 Project"
+author: "Jason Lewis"
+date: "2023-11-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(ggplot2)
+```
+
+
+```{r}
+WC <- read.csv("/Users/jasonlewis22/Documents/Documents - Jason's MacBook Pro/College Work/Autumn 23/451 Files/WorldCups.csv")
+
+Player <- read.csv("/Users/jasonlewis22/Documents/Documents - Jason's MacBook Pro/College Work/Autumn 23/451 Files/WorldCupPlayers.csv")
+
+Match <- read.csv("/Users/jasonlewis22/Documents/Documents - Jason's MacBook Pro/College Work/Autumn 23/451 Files/WorldCupMatches.csv")
+```
+
+
+```{r Avg Attendance per goal}
+Average_Attendance <- Match %>%
+  arrange(desc(Attendance)) %>%
+  mutate(Total.Goals = as.numeric(Home.Team.Goals) + as.numeric(Away.Team.Goals)) %>%
+  select(Home.Team.Name, Away.Team.Name, Attendance, Total.Goals, City) %>%
+  filter(!is.na(Attendance)) %>%
+  group_by(Total.Goals) %>%
+  summarize(Average_Attendance = mean(Attendance),
+            Count = n())
+
+
+ggplot(Average_Attendance, aes(x = Total.Goals, y = Average_Attendance, fill = Count)) +
+  geom_bar(stat = "identity") +
+  scale_fill_gradient(low = "lightblue", high = "darkblue") +
+  labs(title = "Average Attendance for Each Number of Goals",
+       x = "Total Goals",
+       y = "Average Attendance") +
+  theme_minimal() +
+  scale_x_continuous(breaks = seq(1, 12, 1))
+```
+
+
+```{r Attendance By Location}
+library(stringr)
+
+attend_goals <- WC %>% 
+  mutate(Attendance = as.numeric(str_replace_all(Attendance, "\\.", "")))
+
+ggplot(attend_goals, aes(x = GoalsScored, y = Attendance, size = MatchesPlayed)) +
+  geom_point(shape = 16, color = "blue") +
+  labs(title = "Scatter Plot of Goals Scored vs Attendance",
+       x = "Goals Scored",
+       y = "Attendance",
+       size = "Matches Played") +
+  scale_y_continuous(limits = c(0, 2750000),
+                     breaks = seq(0, 2750000, by = 500000),
+                     labels = scales::comma_format(scale = 1e-6, suffix = " million")) +
+  scale_x_continuous(limits = c(60, 150),
+                     breaks = seq(60, 150, by = 20)) +
+  scale_size(range = c(3, 18))
+
+```
+
+
+
+```{r}
+By_stage <- Match %>% 
+  group_by(Stage) %>% 
+  summarise(Average_Goals = mean(Home.Team.Goals + Away.Team.Goals, na.rm = TRUE))
+
+ggplot(By_stage, aes(x = Stage, y = Average_Goals)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(title = "Average Goals by Stage",
+       x = "Stage",
+       y = "Average Goals") +
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
