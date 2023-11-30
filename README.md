@@ -37,10 +37,3 @@ Equally noteworthy are the Semi-Final and Final matches, each boasting an averag
 In contrast, the group stage appears to be characterized by a more varied and unpredictable pattern in terms of average goals per game. The lower averages during this phase may be attributed to factors such as teams cautiously navigating the early stages of the tournament, strategic considerations, and the emphasis on securing points rather than pursuing high-scoring outcomes.
 
 In summary, while the group stage sets the initial tone for the tournament, it is the knockout stages, particularly the third-place playoff, Semi-Final, and Final matches, that emerge as the crescendos of goal-scoring drama, showcasing the pinnacle of footballing excellence on the global stage.
-
-```
-library(shiny)
-
-runGitHub("Project", "rstudio")
-
-```
