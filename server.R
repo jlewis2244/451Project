@@ -1,7 +1,5 @@
 server <- function(input, output) {
-
-    Match <- read.csv("Match.csv")
-
+    
     output$Attend_plot <- renderPlot({
     filtered_data <- if (input$all_years) {
       Match 
