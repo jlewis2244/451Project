@@ -38,3 +38,9 @@ In contrast, the group stage appears to be characterized by a more varied and un
 
 In summary, while the group stage sets the initial tone for the tournament, it is the knockout stages, particularly the third-place playoff, Semi-Final, and Final matches, that emerge as the crescendos of goal-scoring drama, showcasing the pinnacle of footballing excellence on the global stage.
 
+```
+library(shiny)
+
+runGitHub("Project", "rstudio")
+
+```
