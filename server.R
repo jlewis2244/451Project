@@ -22,8 +22,8 @@ server <- function(input, output) {
       group_by(Total.Goals) %>%
       summarize(Average_Attendance = mean(Attendance), Count = n())
     
-    ggplot(Average_Attendance, aes(x = Total.Goals, y = Average_Attendance, size = Count)) +
-      geom_line(stat = "identity") +
+    ggplot(Average_Attendance, aes(x = Total.Goals, y = Average_Attendance, fill = Count)) +
+      geom_bar(stat = "identity") +
       scale_fill_gradient(low = "lightblue", high = "darkblue") +
       labs(title = "Average Attendance for Each Number of Goals",
            x = "Total Goals",
