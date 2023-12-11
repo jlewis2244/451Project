@@ -4,7 +4,6 @@ WC <- read.csv('WC.csv')
 
 server <- function(input, output) {
     output$Attend_plot <- renderPlot({
-      print(input$year)
       
       filtered_data <- if (input$all_years) {
         Match 
@@ -12,7 +11,6 @@ server <- function(input, output) {
           Match %>% filter(Year == (input$year))
         }
       
-      print(filtered_data)
       
       if (as.numeric(input$year) %in% c(1942, 1946)) {
         par(mar = c(5, 5, 5, 5))
